@@ -54,6 +54,7 @@ class Tube_point:
     angle = 0  # angle: угол наклона трубы
     list_length = []
     list_diameter = []
+    components = ''
 
 
 def start_point_from_excel(point):  # initialization of start point
