@@ -52,6 +52,8 @@ class Tube_point:
     roughness = 0.01  # roughness: шероховатость внутренней поверхности трубы
     mass = 0.1
     angle = 0  # angle: угол наклона трубы
+    list_length = []
+    list_diameter = []
 
 
 def start_point_from_excel(point):  # initialization of start point
@@ -71,6 +73,10 @@ def start_point_from_excel(point):  # initialization of start point
     point.components_density = data['components_density']
     point.roughness = data['roughness']
     point.mass = data['mass']
+    point.angle = data['angle']
+    point.list_length = data['list_length']
+    point.list_diameter = data['list_diameter']
+    point.components = data['components']
 
     update_point_state(point)
 
@@ -88,7 +94,7 @@ def update_point_state(point):
     """
     Updates tube point parameters after changing local temperature and pressure
     """
-    rk_fluid = cubic('N2,ETOH', 'SRK')  # obsolete
+    rk_fluid = cubic(point.components, 'SRK')  # obsolete
     x, y, vap_frac, liq_frac, phase_key = rk_fluid.two_phase_tpflash(point.temperature, point.pressure,
                                                                      point.molar_composition)
     point.vapor_components = x
