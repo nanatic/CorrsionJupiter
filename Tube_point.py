@@ -2,6 +2,7 @@ from typing import List
 
 import json
 from thermopack.cubic import cubic
+from fluids.two_phase import Taitel_Dukler_regime
 
 from PVT import *
 
@@ -59,8 +60,65 @@ class Tube_point:
 
 def start_point_from_excel(point):  # initialization of start point
 
+    print(f'Ввод входных данных. в качестве десятичного разделителя используйте  "." (точку)')
     with open('Input_data.txt') as json_file:
         data = json.load(json_file)
+
+    data['temperature'] = float(input("Введите температуру"))
+    data['pressure'] = float(input("Введите давление"))
+
+    list_ = []
+    sub_molA = float(input(r"Введите молярную долю газа"))
+    list_.append(sub_molA)
+    sub_molB = float(input("Введите молярную долю жидкости"))
+    list_.append(sub_molB)
+
+    data['molar_composition'] = list_
+
+    list_ = []
+    sub_masA = float(
+        input(r"Введите молярную массу газа"))
+    list_.append(sub_masA)
+    sub_masB = float(
+        input("Введите молярную массу жидкости"))
+    list_.append(sub_masB)
+
+    data['molar_masses'] = list_
+
+    data['velocity'] = float(input("Введите скорость флюида"))
+    data['diameter'] = float(input("Введите диаметр"))
+    data['length'] = float(input("Введите длину трубопровода"))
+    data['vapor_viscosities'] = float(input("Введите вязкость газа"))
+    data['liquid_viscosities'] = float(input("Введите вязкость жидкости"))
+
+    list_ = []
+    sub_A = float(
+        input(r"Введите плотность газа"))
+    list_.append(sub_masA)
+    sub_B = float(
+        input("Введите плотность жидкости"))
+    list_.append(sub_masB)
+    data['components_density'] = list_
+
+    data['roughness'] = float(input("Введите шероховатость стенок трубопровода [м] "))
+    data['mass'] = float(input("Введите расход флюида (кг / с) "))
+    data['angle'] = float(input("Введите угол наклона трубопровода"))
+
+
+
+    lst = []
+    dst = []
+    n = int(input("Введите колличество отрезков трубопровода : "))
+
+    for i in range(1, n+1):
+        ele = int(input(f'Введите длину отрезка номер {i}'))
+        diam = float(input(f'Введите диаметр отрезка номер {i}'))
+        # adding the element
+        lst.append(ele)
+        dst.append(diam)
+    data['list_length'] = lst
+    data['list_diameter'] = dst
+
 
     point.temperature = data['temperature']
     point.pressure = data['pressure']
@@ -163,17 +221,27 @@ def calculate_viscosity(point, friction_factor):
     return friction_factor * liquid_viscosity + (1 - friction_factor) * gas_viscosity
 
 
+
 def return_mode(xtt):
-    if xtt < 10: return 'bubble'
-    if 10 <= xtt < 100:
-        return 'plug'
-    if 100 <= xtt < 1000:
-        return 'slug'
-    if 1000 <= xtt < 10000:
-        return 'annular'
-    if 10000 <= xtt:
-        return 'mist'
-    return 'undefined'
+    list_ = []
+    list_ = Taitel_Dukler_regime(m=Tube_point.mass, x=0.7, rhol=Tube_point.components_density[1],
+                                 rhog=Tube_point.components_density[0], mul=Tube_point.liquid_viscosities[0],
+                                 mug=Tube_point.vapor_viscosities[0], D=Tube_point.diameter, angle=Tube_point.angle,
+                                 roughness=Tube_point.roughness)
+    return list_[0]
+
+
+# def return_mode(xtt):
+#     if xtt < 10: return 'bubble'
+#     if 10 <= xtt < 100:
+#         return 'plug'
+#     if 100 <= xtt < 1000:
+#         return 'slug'
+#     if 1000 <= xtt < 10000:
+#         return 'annular'
+#     if 10000 <= xtt:
+#         return 'mist'
+#     return 'undefined'
 
 
 # liquid to solid viscosity calculation:
