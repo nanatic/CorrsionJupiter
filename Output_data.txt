@@ -16,15 +16,15 @@
     {
         "P1": 16249999.999994982,
         "T1": 209.2,
-        "Flow": "Found , stratified smooth,  flow_mode at, 450, ! xtt= , 3.518177194439112e-05",
-        "Re": "Reynolds number for , (1000, 0.08),  is  0.09320397343939844, lambda is ,686.6660040155158",
-        "KHHC": 1.5053898096084595e-05
+        "Flow": "Found , stratified smooth,  flow_mode at, 450, ! xtt= , 2.9484171278266775e-05",
+        "Re": "Reynolds number for , (1000, 0.08),  is  0.0828479763905764, lambda is ,772.4992545174553",
+        "KHHC": 1.693563535809517e-05
     },
     {
         "P1": 16249999.99999331,
         "T1": 208.0,
-        "Flow": "Found , stratified smooth,  flow_mode at, 1000, ! xtt= , 2.9285486814302603e-05",
-        "Re": "Reynolds number for , (1000, 0.08),  is  0.08025816419911924, lambda is ,797.4266623046225",
-        "KHHC": 3.763474524021149e-05
+        "Flow": "Found , stratified smooth,  flow_mode at, 450, ! xtt= , 4.2694226706548135e-05",
+        "Re": "Reynolds number for , (1000, 0.08),  is  0.10318906825601043, lambda is ,620.2207373480398",
+        "KHHC": 1.3172160834074022e-05
     }
 ]

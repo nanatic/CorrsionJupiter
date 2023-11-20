@@ -52,7 +52,7 @@ class Tube_point:
     reynolds_number: float = 10000.0  # reynolds_number: double, Reynolds number for ...
     roughness = 0.01  # roughness: шероховатость внутренней поверхности трубы
     mass = 0.1
-    angle = 0  # angle: угол наклона трубы
+    angle = [] # angle: угол наклона трубы
     list_length = []
     list_diameter = []
     components = ''
@@ -107,23 +107,24 @@ def start_point_from_excel(point):  # initialization of start point
 
     data['roughness'] = float(input("Введите шероховатость стенок трубопровода [м] "))
     data['mass'] = float(input("Введите расход флюида (кг / с) "))
-    data['angle'] = float(input("Введите угол наклона трубопровода"))
-
 
 
     lst = []
     dst = []
+    ast = []
     n = int(input("Введите колличество отрезков трубопровода : "))
 
     for i in range(1, n+1):
         ele = int(input(f'Введите длину отрезка номер {i}'))
         diam = float(input(f'Введите диаметр отрезка номер {i}'))
+        ang = float(input(f"Введите угол наклона отрезка номер {i}"))
         # adding the element
         lst.append(ele)
         dst.append(diam)
+        ast.append(ang)
     data['list_length'] = lst
     data['list_diameter'] = dst
-
+    data['angle'] = ast
     # with open('sub_input.txt','w') as inpt:
     #     inpt.write(data)
 
@@ -230,11 +231,11 @@ def calculate_viscosity(point, friction_factor):
 
 
 
-def return_mode(xtt):
+def return_mode(angle):
     list_ = []
     list_ = Taitel_Dukler_regime(m=Tube_point.mass, x=0.7, rhol=Tube_point.components_density[1],
                                  rhog=Tube_point.components_density[0], mul=Tube_point.liquid_viscosities[0],
-                                 mug=Tube_point.vapor_viscosities[0], D=Tube_point.diameter, angle=Tube_point.angle,
+                                 mug=Tube_point.vapor_viscosities[0], D=Tube_point.diameter, angle=angle,
                                  roughness=Tube_point.roughness)
     return list_[0]
 
