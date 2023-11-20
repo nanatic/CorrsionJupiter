@@ -61,6 +61,7 @@ class Tube_point:
 def start_point_from_excel(point):  # initialization of start point
 
     print(f'Ввод входных данных. в качестве десятичного разделителя используйте  "." (точку)')
+
     with open('Input_data.txt') as json_file:
         data = json.load(json_file)
 
@@ -84,9 +85,13 @@ def start_point_from_excel(point):  # initialization of start point
     list_.append(sub_masB)
 
     data['molar_masses'] = list_
-
-    data['velocity'] = float(input("Введите скорость флюида"))
     data['diameter'] = float(input("Введите диаметр"))
+    vg = float(input(f'Введите объемный расход газа за сутки'))
+    vf = float(input(f'Введите объемный расход жидкости за сутки'))
+    v = ((vg + vf) / 86400 / (math.pi * (data['diameter'])**2 / 4))
+
+    data['velocity'] = v
+
     data['length'] = float(input("Введите длину трубопровода"))
     data['vapor_viscosities'] = float(input("Введите вязкость газа"))
     data['liquid_viscosities'] = float(input("Введите вязкость жидкости"))
@@ -118,6 +123,9 @@ def start_point_from_excel(point):  # initialization of start point
         dst.append(diam)
     data['list_length'] = lst
     data['list_diameter'] = dst
+
+    # with open('sub_input.txt','w') as inpt:
+    #     inpt.write(data)
 
 
     point.temperature = data['temperature']
