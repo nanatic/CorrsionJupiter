@@ -23,8 +23,8 @@
     {
         "P1": 16249999.99999331,
         "T1": 208.0,
-        "Flow": "Found , stratified smooth,  flow_mode at, 450, ! xtt= , 4.2694226706548135e-05",
-        "Re": "Reynolds number for , (1000, 0.08),  is  0.10318906825601043, lambda is ,620.2207373480398",
-        "KHHC": 1.3172160834074022e-05
+        "Flow": "Found , stratified smooth,  flow_mode at, 1000, ! xtt= , 2.9285486814302603e-05",
+        "Re": "Reynolds number for , (1000, 0.08),  is  0.08025816419911923, lambda is ,797.4266623046226",
+        "KHHC": 3.763474524021149e-05
     }
 ]
