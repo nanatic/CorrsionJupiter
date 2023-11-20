@@ -65,8 +65,8 @@ def start_point_from_excel(point):  # initialization of start point
     with open('Input_data.txt') as json_file:
         data = json.load(json_file)
 
-    data['temperature'] = float(input("Введите температуру"))
-    data['pressure'] = float(input("Введите давление"))
+    data['temperature'] = float(input("Введите температуру [К]"))
+    data['pressure'] = float(input("Введите давление [Па]"))
 
     list_ = []
     sub_molA = float(input(r"Введите молярную долю газа"))
@@ -78,30 +78,30 @@ def start_point_from_excel(point):  # initialization of start point
 
     list_ = []
     sub_masA = float(
-        input(r"Введите молярную массу газа"))
+        input(r"Введите молярную массу газа [кг/моль]"))
     list_.append(sub_masA)
     sub_masB = float(
-        input("Введите молярную массу жидкости"))
+        input("Введите молярную массу жидкости [кг/моль]"))
     list_.append(sub_masB)
 
     data['molar_masses'] = list_
-    data['diameter'] = float(input("Введите диаметр"))
-    vg = float(input(f'Введите объемный расход газа за сутки'))
-    vf = float(input(f'Введите объемный расход жидкости за сутки'))
+    data['diameter'] = float(input("Введите диаметр [мм]"))
+    vg = float(input(f'Введите объемный расход газа за сутки [м3/сут]'))
+    vf = float(input(f'Введите объемный расход жидкости за сутки [м3/сут]'))
     v = ((vg + vf) / 86400 / (math.pi * (data['diameter'])**2 / 4))
 
     data['velocity'] = v
 
-    data['length'] = float(input("Введите длину трубопровода"))
-    data['vapor_viscosities'] = float(input("Введите вязкость газа"))
-    data['liquid_viscosities'] = float(input("Введите вязкость жидкости"))
+    data['length'] = float(input("Введите длину трубопровода [м]"))
+    data['vapor_viscosities'] = float(input("Введите вязкость газа [Па·с]"))
+    data['liquid_viscosities'] = float(input("Введите вязкость жидкости [Па·с]"))
 
     list_ = []
     sub_A = float(
-        input(r"Введите плотность газа"))
+        input(r"Введите плотность газа [кг/м3]"))
     list_.append(sub_masA)
     sub_B = float(
-        input("Введите плотность жидкости"))
+        input("Введите плотность жидкости [кг/м3]"))
     list_.append(sub_masB)
     data['components_density'] = list_
 
